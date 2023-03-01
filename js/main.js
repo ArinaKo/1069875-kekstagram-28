@@ -1,4 +1,4 @@
-const NUMBER_OF_PHOTOS = 5;
+const NUMBER_OF_PHOTOS = 15;
 
 const messageExamples = [
   'Всё отлично!',
@@ -25,13 +25,13 @@ const nameExamples = [
 ];
 
 const getRandomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min) + min);
+  Math.floor(Math.random() * (max + 1 - min) + min);
 
 function generateId (min, max) {
   const usedIds = [];
   return function () {
     let newId = getRandomNumber(min, max);
-    while (usedIds.includes[newId]) {
+    while (usedIds.includes(newId)) {
       newId = getRandomNumber(min, max);
     }
     usedIds.push(newId);
@@ -39,7 +39,7 @@ function generateId (min, max) {
   };
 }
 
-const createCommentId = generateId();
+const createCommentId = generateId(1000, 9999);
 
 const createComment = () => {
   const obj = {
@@ -65,4 +65,6 @@ const createPost = () => {
   return obj;
 };
 
-const createPosts = Array.from({ length: NUMBER_OF_PHOTOS }, createPost);
+const examplePosts = Array.from({ length: NUMBER_OF_PHOTOS }, createPost);
+
+console.log(examplePosts);
