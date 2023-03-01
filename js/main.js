@@ -1,6 +1,6 @@
-const mokisNumber = 25;
+const NUMBER_OF_PHOTOS = 5;
 
-const messagesMoki = [
+const messageExamples = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -9,10 +9,10 @@ const messagesMoki = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const namesMoki = [
+const nameExamples = [
   'Арина',
   'Агафья',
-  'Андерей',
+  'Андрей',
   'Артем',
   'Анна',
   'Агата',
@@ -27,21 +27,7 @@ const namesMoki = [
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min) + min);
 
-// const createMessage = () => {
-//   const firstSentence = getRandomNumber(0, messagesMoki.length - 1);
-//   let message = messagesMoki[firstSentence];
-//   // Проверка рандома на количество предложений: 1 или 2
-//   // if (getRandomNumber(1, 2) === 2) {
-//   //   let secondSentence = getRandomNumber(0, messagesMoki.length - 1);
-//   //   while (secondSentence === firstSentence) {
-//   //     secondSentence = getRandomNumber(0, messagesMoki.length - 1);
-//   //   }
-//   //   message += messagesMoki[secondSentence];
-//   // }
-//   return message;
-// };
-
-function generateId(min, max) {
+function generateId (min, max) {
   const usedIds = [];
   return function () {
     let newId = getRandomNumber(min, max);
@@ -59,16 +45,16 @@ const createComment = () => {
   const obj = {
     id: createCommentId(),
     avatar: `img/${getRandomNumber(1, 6)}.svg`,
-    message: messagesMoki[getRandomNumber(0, messagesMoki.length - 1)],
-    name: namesMoki[getRandomNumber(0, namesMoki.length - 1)],
+    message: messageExamples[getRandomNumber(0, messageExamples.length - 1)],
+    name: nameExamples[getRandomNumber(0, nameExamples.length - 1)],
   };
   return obj;
 };
 
-const createPostId = generateId(1, mokisNumber);
-const createPhotoId = generateId(1, mokisNumber);
+const createPostId = generateId(1, NUMBER_OF_PHOTOS);
+const createPhotoId = generateId(1, NUMBER_OF_PHOTOS);
 
-const createPhoto = () => {
+const createPost = () => {
   const obj = {
     id: createPostId(),
     url: `photos/${createPhotoId()}.jpg`,
@@ -79,4 +65,4 @@ const createPhoto = () => {
   return obj;
 };
 
-const createMokis = Array.from({ length: mokisNumber }, createPhoto);
+const createPosts = Array.from({ length: NUMBER_OF_PHOTOS }, createPost);
