@@ -1,6 +1,16 @@
 const NUMBER_OF_PHOTOS = 15;
+const NUMBER_OF_AVATARS = 6;
+const NUMBER_OF_COMMENTS = 5;
+const likesLimit = {
+  MIN: 15,
+  MAX: 200,
+};
+const commentsIdLimit = {
+  MIN: 1000,
+  MAX: 9999,
+};
 
-const messageExamples = [
+const MESSAGE_EXAMPLES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -9,7 +19,7 @@ const messageExamples = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const nameExamples = [
+const NAME_EXAMPLES = [
   'Арина',
   'Агафья',
   'Андрей',
@@ -27,7 +37,7 @@ const nameExamples = [
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max + 1 - min) + min);
 
-function generateId (min, max) {
+function generateId(min, max) {
   const usedIds = [];
   return function () {
     let newId = getRandomNumber(min, max);
@@ -39,14 +49,14 @@ function generateId (min, max) {
   };
 }
 
-const createCommentId = generateId(1000, 9999);
+const createCommentId = generateId(commentsIdLimit.MIN, commentsIdLimit.MAX);
 
 const createComment = () => {
   const obj = {
     id: createCommentId(),
-    avatar: `img/${getRandomNumber(1, 6)}.svg`,
-    message: messageExamples[getRandomNumber(0, messageExamples.length - 1)],
-    name: nameExamples[getRandomNumber(0, nameExamples.length - 1)],
+    avatar: `img/${getRandomNumber(1, NUMBER_OF_AVATARS)}.svg`,
+    message: MESSAGE_EXAMPLES[getRandomNumber(0, MESSAGE_EXAMPLES.length - 1)],
+    name: NAME_EXAMPLES[getRandomNumber(0, NAME_EXAMPLES.length - 1)],
   };
   return obj;
 };
@@ -59,8 +69,8 @@ const createPost = () => {
     id: createPostId(),
     url: `photos/${createPhotoId()}.jpg`,
     description: 'Да я прирожденный фотограф',
-    likes: getRandomNumber(15, 200),
-    comments: Array.from({ length: 5 }, createComment),
+    likes: getRandomNumber(likesLimit.MIN, likesLimit.MAX),
+    comments: Array.from({ length: NUMBER_OF_COMMENTS }, createComment),
   };
   return obj;
 };
