@@ -62,29 +62,24 @@ function generateId(min, max) {
 
 const createCommentId = generateId(commentsIdLimit.MIN, commentsIdLimit.MAX);
 
-const createComment = () => {
-  const obj = {
-    id: createCommentId(),
-    avatar: `img/${getRandomNumber(1, NUMBER_OF_AVATARS)}.svg`,
-    message: MESSAGE_EXAMPLES[getRandomNumber(0, MESSAGE_EXAMPLES.length - 1)],
-    name: NAME_EXAMPLES[getRandomNumber(0, NAME_EXAMPLES.length - 1)],
-  };
-  return obj;
-};
+const createComment = () => ({
+  id: createCommentId(),
+  avatar: `img/${getRandomNumber(1, NUMBER_OF_AVATARS)}.svg`,
+  message: MESSAGE_EXAMPLES[getRandomNumber(0, MESSAGE_EXAMPLES.length - 1)],
+  name: NAME_EXAMPLES[getRandomNumber(0, NAME_EXAMPLES.length - 1)],
+});
 
 const createPostId = generateId(1, NUMBER_OF_PHOTOS);
 const createPhotoId = generateId(1, NUMBER_OF_PHOTOS);
 
-const createPost = () => {
-  const obj = {
-    id: createPostId(),
-    url: `photos/${createPhotoId()}.jpg`,
-    description: DESCRIPTION_EXAMPLES[getRandomNumber(0, DESCRIPTION_EXAMPLES.length - 1)],
-    likes: getRandomNumber(likesLimit.MIN, likesLimit.MAX),
-    comments: Array.from({ length: NUMBER_OF_COMMENTS }, createComment),
-  };
-  return obj;
-};
+const createPost = () => ({
+  id: createPostId(),
+  url: `photos/${createPhotoId()}.jpg`,
+  description:
+    DESCRIPTION_EXAMPLES[getRandomNumber(0, DESCRIPTION_EXAMPLES.length - 1)],
+  likes: getRandomNumber(likesLimit.MIN, likesLimit.MAX),
+  comments: Array.from({ length: NUMBER_OF_COMMENTS }, createComment),
+});
 
 const examplePosts = Array.from({ length: NUMBER_OF_PHOTOS }, createPost);
 
