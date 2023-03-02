@@ -19,6 +19,17 @@ const MESSAGE_EXAMPLES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
+const DESCRIPTION_EXAMPLES = [
+  'Да я прирожденный фотограф',
+  'Никогда не позволяйте никому скучать',
+  'Я точно знаю, кто я, и я чертовски горжусь этим',
+  'Поймали дзен',
+  'Жизнь не идеальна, но еда может быть вполне',
+  'Это моя бандитская жизнь',
+  'Без слов',
+  'Good vibes only',
+];
+
 const NAME_EXAMPLES = [
   'Арина',
   'Агафья',
@@ -68,7 +79,7 @@ const createPost = () => {
   const obj = {
     id: createPostId(),
     url: `photos/${createPhotoId()}.jpg`,
-    description: 'Да я прирожденный фотограф',
+    description: DESCRIPTION_EXAMPLES[getRandomNumber(0, DESCRIPTION_EXAMPLES.length - 1)],
     likes: getRandomNumber(likesLimit.MIN, likesLimit.MAX),
     comments: Array.from({ length: NUMBER_OF_COMMENTS }, createComment),
   };
