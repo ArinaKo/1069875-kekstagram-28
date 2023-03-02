@@ -64,7 +64,7 @@ const createCommentId = generateId(commentsIdLimit.MIN, commentsIdLimit.MAX);
 
 const createComment = () => ({
   id: createCommentId(),
-  avatar: `img/${getRandomNumber(1, NUMBER_OF_AVATARS)}.svg`,
+  avatar: `img/avatar-${getRandomNumber(1, NUMBER_OF_AVATARS)}.svg`,
   message: MESSAGE_EXAMPLES[getRandomNumber(0, MESSAGE_EXAMPLES.length - 1)],
   name: NAME_EXAMPLES[getRandomNumber(0, NAME_EXAMPLES.length - 1)],
 });
