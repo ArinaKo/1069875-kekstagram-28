@@ -1,4 +1,4 @@
-import { getRandomNumber, generateId, getRandomElement } from './utiles.js';
+import { getRandomNumber, generateId, getRandomElement } from './utilities.js';
 
 const NUMBER_OF_PHOTOS = 15;
 const NUMBER_OF_AVATARS = 6;
