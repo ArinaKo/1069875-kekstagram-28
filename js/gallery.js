@@ -1,11 +1,12 @@
 import { generateGallery } from './thumbnails.js';
+import { openBigPicture } from './big-picture.js';
 
 const picturesList = document.querySelector('.pictures');
 
 generateGallery();
 
 const onThumbnailClick = function () {
-  // open big picture
+  openBigPicture();
 };
 
 picturesList.addEventListener('click', (evt) => {
