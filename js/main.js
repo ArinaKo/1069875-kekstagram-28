@@ -1,3 +1,1 @@
-import { generatePosts } from './data.js';
-
-console.log(generatePosts());
+import './thumbnails.js';
