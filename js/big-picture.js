@@ -1,5 +1,8 @@
+import { renderPost } from './post.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.cancel');
+
 const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
@@ -14,7 +17,8 @@ const onCloseButtonClick = (evt) => {
   closeBigPicture();
 };
 
-const openBigPicture = () => {
+const openBigPicture = (post) => {
+  renderPost(post);
   bigPicture.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
 

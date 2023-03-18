@@ -1,16 +1,12 @@
-import { generatePosts } from './data.js';
-
 const pictures = document.querySelector('.pictures');
 const thumbnailTemplate = document
   .querySelector('#picture')
   .content.querySelector('.picture');
 
-const thumbnailsDate = generatePosts();
-
-const generateGallery = () => {
+const generateThumbnails = (data) => {
   const thumbnailsFragment = document.createDocumentFragment();
 
-  thumbnailsDate.forEach(({ url, likes, comments }) => {
+  data.forEach(({ url, likes, comments }) => {
     const thumbnail = thumbnailTemplate.cloneNode(true);
 
     thumbnail.querySelector('.picture__img').src = url;
@@ -23,4 +19,4 @@ const generateGallery = () => {
   pictures.append(thumbnailsFragment);
 };
 
-export { generateGallery };
+export { generateThumbnails };
