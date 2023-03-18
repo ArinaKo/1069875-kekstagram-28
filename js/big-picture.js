@@ -1,4 +1,5 @@
 import { renderPost } from './post.js';
+import { isKeyEscape } from './utilities.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.cancel');
@@ -7,7 +8,7 @@ const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isKeyEscape(evt)) {
     closeBigPicture();
   }
 };

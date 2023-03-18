@@ -15,4 +15,6 @@ function generateId(min, max) {
 
 const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
-export { getRandomNumber, generateId, getRandomElement };
+const isKeyEscape = (evt) => evt.key === 'Escape';
+
+export { getRandomNumber, generateId, getRandomElement, isKeyEscape };
