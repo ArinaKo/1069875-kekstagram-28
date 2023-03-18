@@ -2,7 +2,10 @@ import { getRandomNumber, generateId, getRandomElement } from './utilities.js';
 
 const NUMBER_OF_PHOTOS = 25;
 const NUMBER_OF_AVATARS = 6;
-const NUMBER_OF_COMMENTS = 5;
+const commentsLimit = {
+  MIN: 0,
+  MAX: 50,
+};
 const likesLimit = {
   MIN: 15,
   MAX: 200,
@@ -64,7 +67,7 @@ const createPost = () => ({
   url: `photos/${createPhotoId()}.jpg`,
   description: getRandomElement(DESCRIPTION_EXAMPLES),
   likes: getRandomNumber(likesLimit.MIN, likesLimit.MAX),
-  comments: Array.from({ length: NUMBER_OF_COMMENTS }, createComment),
+  comments: Array.from({ length: getRandomNumber(commentsLimit.MIN, commentsLimit.MAX) }, createComment),
 });
 
 const generatePosts = () =>
