@@ -6,17 +6,17 @@ const picturesList = document.querySelector('.pictures');
 
 const postsData = generatePosts();
 generateThumbnails(postsData);
-const thumbnails = Array.from(picturesList.querySelectorAll('.picture'));
+const postsId = postsData.map((post) => post.id);
 
 const onThumbnailClick = function (thumbnailIndex) {
-  const post = postsData[thumbnailIndex];
+  const post = postsData[postsId.indexOf(thumbnailIndex)];
   openBigPicture(post);
 };
 
 picturesList.addEventListener('click', (evt) => {
   if (evt.target.closest('.picture')) {
     evt.preventDefault();
-    const thumbnailIndex = thumbnails.indexOf(evt.target.parentNode);
+    const thumbnailIndex = Number(evt.target.parentNode.id);
     onThumbnailClick(thumbnailIndex);
   }
 });

@@ -6,8 +6,10 @@ const thumbnailTemplate = document
 const generateThumbnails = (data) => {
   const thumbnailsFragment = document.createDocumentFragment();
 
-  data.forEach(({ url, likes, comments }) => {
+  data.forEach(({ id, url, likes, comments }) => {
     const thumbnail = thumbnailTemplate.cloneNode(true);
+
+    thumbnail.id = id;
 
     thumbnail.querySelector('.picture__img').src = url;
     thumbnail.querySelector('.picture__likes').textContent = likes;
