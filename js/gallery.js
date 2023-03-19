@@ -8,7 +8,7 @@ const postsData = generatePosts();
 generateThumbnails(postsData);
 const postsId = postsData.map((post) => post.id);
 
-const onThumbnailClick = function (thumbnailIndex) {
+const onThumbnailClick = (thumbnailIndex) => {
   const post = postsData[postsId.indexOf(thumbnailIndex)];
   openBigPicture(post);
 };

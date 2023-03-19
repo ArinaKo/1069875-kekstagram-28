@@ -29,12 +29,12 @@ const openBigPicture = (post) => {
   commentsLoader.classList.add('hidden');
 };
 
-const closeBigPicture = () => {
+function closeBigPicture () {
   bigPicture.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
-};
+}
 
 closeButton.addEventListener('click', onCloseButtonClick);
 
