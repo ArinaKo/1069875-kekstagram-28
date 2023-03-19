@@ -1,6 +1,7 @@
 import { renderPost } from './post.js';
 import { isKeyEscape } from './utilities.js';
 
+const body = document.body;
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.cancel');
 
@@ -21,7 +22,7 @@ const onCloseButtonClick = (evt) => {
 const openBigPicture = (post) => {
   renderPost(post);
   bigPicture.classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
+  body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
 
@@ -31,7 +32,7 @@ const openBigPicture = (post) => {
 
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+  body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
