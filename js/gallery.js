@@ -14,9 +14,10 @@ const onThumbnailClick = (thumbnailIndex) => {
 };
 
 picturesList.addEventListener('click', (evt) => {
-  if (evt.target.closest('.picture')) {
-    evt.preventDefault();
-    const thumbnailIndex = Number(evt.target.parentNode.id);
-    onThumbnailClick(thumbnailIndex);
+  if (!evt.target.closest('.picture')) {
+    return;
   }
+  evt.preventDefault();
+  const thumbnailIndex = Number(evt.target.parentNode.id);
+  onThumbnailClick(thumbnailIndex);
 });
