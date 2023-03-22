@@ -18,6 +18,6 @@ picturesList.addEventListener('click', (evt) => {
     return;
   }
   evt.preventDefault();
-  const thumbnailIndex = Number(evt.target.parentNode.id);
+  const thumbnailIndex = Number(evt.target.parentNode.dataset.thumbnailId);
   onThumbnailClick(thumbnailIndex);
 });

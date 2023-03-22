@@ -6,7 +6,7 @@ const thumbnailTemplate = document
 const createThumbnail = ({ id, url, likes, comments }, fragment) => {
   const thumbnail = thumbnailTemplate.cloneNode(true);
 
-  thumbnail.id = id;
+  thumbnail.dataset.thumbnailId = id;
 
   thumbnail.querySelector('.picture__img').src = url;
   thumbnail.querySelector('.picture__likes').textContent = likes;
