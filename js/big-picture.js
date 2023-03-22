@@ -15,6 +15,6 @@ const openBigPicture = (post) => {
   commentsLoader.classList.add('hidden');
 };
 
-closeButton.addEventListener('click', (evt) => onCloseButtonClick(evt, bigPicture));
+closeButton.addEventListener('click', onCloseButtonClick);
 
 export { openBigPicture };
