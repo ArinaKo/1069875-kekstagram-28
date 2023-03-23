@@ -14,8 +14,11 @@ const onCloseButtonClick = (evt) => {
   closePopup();
 };
 
-const openPopup = (element, closeFunction) => {
+const openPopup = (element, openFunction, closeFunction) => {
   popup = element;
+  if (openFunction) {
+    openFunction();
+  }
   if (closeFunction) {
     closeScript = closeFunction;
   }
