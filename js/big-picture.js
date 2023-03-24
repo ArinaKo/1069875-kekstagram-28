@@ -1,5 +1,5 @@
 import { renderPost } from './post.js';
-import { openPopup, onCloseButtonClick } from './popup.js';
+import { onCloseButtonClick } from './popup.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.cancel');
@@ -9,7 +9,6 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const openBigPicture = (post) => {
   renderPost(post);
-  openPopup(bigPicture);
 
   commentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
