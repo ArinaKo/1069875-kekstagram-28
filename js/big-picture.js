@@ -36,4 +36,4 @@ function closeBigPicture () {
 
 closeButton.addEventListener('click', onCloseButtonClick);
 
-export { openBigPicture };
+export { openBigPicture, closeBigPicture };

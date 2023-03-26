@@ -1,5 +1,5 @@
 import { generateThumbnails } from './thumbnails.js';
-import { openBigPicture } from './big-picture.js';
+import { openBigPicture, closeBigPicture } from './big-picture.js';
 import { generatePosts } from './data.js';
 import { openPopup } from './popup.js';
 
@@ -12,7 +12,7 @@ const postsId = postsData.map((post) => post.id);
 
 const onThumbnailClick = (thumbnailIndex) => {
   const post = postsData[postsId.indexOf(thumbnailIndex)];
-  openPopup(bigPicture, openBigPicture(post));
+  openPopup(bigPicture, openBigPicture(post), closeBigPicture);
 };
 
 picturesList.addEventListener('click', (evt) => {
