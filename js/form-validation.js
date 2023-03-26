@@ -18,23 +18,35 @@ const validateHashtags = () => {
   if (!hashtagsInput.value) {
     return true;
   }
-  const hashtags = hashtagsInput.value.trim().split(' ');
+
+  const hashtags = hashtagsInput.value
+    .trim()
+    .toLowerCase()
+    .split(' ')
+    .map((item) => item.trim())
+    .filter((item) => item.length);
+
   if (hashtags.length > 5) {
     validationMessage = 'Максимальное количество хэш-тегов 5';
     return false;
   }
+
   const check = hashtags.every((hashtag, id) => {
     const isValid = validateHashtag(hashtag);
+
     if (!isValid) {
       validationMessage = 'Присутствует не валидный хэш-тег';
       return false;
     }
-    const isUnique = !(hashtags.slice(id + 1).includes(hashtag));
+
+    const isUnique = !hashtags.slice(id + 1).includes(hashtag);
     if (!isUnique) {
       validationMessage = 'Хэш-теги не уникальны';
     }
+
     return isUnique;
   });
+
   return check;
 };
 
