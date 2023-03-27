@@ -1,5 +1,5 @@
 const form = document.querySelector('.img-upload__form');
-const image = form.querySelector('.img-upload__preview');
+const image = form.querySelector('.img-upload__preview img');
 const scale = {
   controls: {
     decrease: form.querySelector('.scale__control--smaller'),
@@ -10,6 +10,12 @@ const scale = {
   value: 100,
   min: 25,
   max: 100,
+};
+
+const resetSizing = () => {
+  scale.value = scale.max;
+  scale.controls.output.value = `${scale.value}%`;
+  image.style.transform = `scale(${scale.value / 100})`;
 };
 
 const changeImageSize = (decreaseSize, button) => {
@@ -38,5 +44,4 @@ const onScaleClick = (evt) => {
   changeImageSize(decrease, evt.target);
 };
 
-scale.controls.increase.addEventListener('click', onScaleClick);
-scale.controls.decrease.addEventListener('click', onScaleClick);
+export { resetSizing, onScaleClick };

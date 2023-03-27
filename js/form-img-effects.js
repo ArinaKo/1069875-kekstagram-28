@@ -1,7 +1,6 @@
 const form = document.querySelector('.img-upload__form');
 const image = form.querySelector('.img-upload__preview img');
-const effectsList = form.querySelector('.effects__list');
-const noneEffect = effectsList.querySelector('#effect-none');
+const noneEffect = form.querySelector('#effect-none');
 const slider = {
   container: form.querySelector('.effect-level'),
   element: form.querySelector('.effect-level__slider'),
@@ -68,8 +67,8 @@ noUiSlider.create(slider.element, {
 });
 
 const resetEffect = () => {
-  image.removeAttribute('style');
   image.removeAttribute('class');
+  image.style.filter = 'none';
   currentEffect = null;
   slider.output.value = 100;
   slider.element.noUiSlider.set(100);
@@ -118,4 +117,4 @@ const onEffectButtonClick = (evt) => {
   applyEffect(evt.target.value);
 };
 
-effectsList.addEventListener('click', onEffectButtonClick);
+export { resetEffect, onEffectButtonClick };
