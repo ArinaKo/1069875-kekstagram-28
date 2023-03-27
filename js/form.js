@@ -2,6 +2,7 @@ import { openPopup, onCloseButtonClick } from './popup.js';
 import { isKeyEscape } from './utilities.js';
 import './form-validation.js';
 import './img-edit-form.js';
+import './form-img-effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const fileField = form.querySelector('#upload-file');
