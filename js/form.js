@@ -1,6 +1,7 @@
 import { openPopup, onCloseButtonClick } from './popup.js';
 import { isKeyEscape } from './utilities.js';
 import './form-validation.js';
+import './img-edit-form.js';
 
 const form = document.querySelector('.img-upload__form');
 const fileField = form.querySelector('#upload-file');
@@ -26,8 +27,8 @@ const closeForm = () => {
   descriptionInput.removeEventListener('keydown', onInputEscapeKeydown);
 };
 
-fileField.addEventListener('change', () => openPopup(formOverlay, openForm, closeForm));
+fileField.addEventListener('change', () =>
+  openPopup(formOverlay, openForm, closeForm)
+);
 
 closeButton.addEventListener('click', onCloseButtonClick);
-
-
