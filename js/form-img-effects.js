@@ -7,6 +7,12 @@ const slider = {
   output: form.querySelector('.effect-level__value'),
 };
 const effects = {
+  NONE: {
+    minValue: 0,
+    maxValue: 100,
+    step: 1,
+    unit: '',
+  },
   CHROME: {
     minValue: 0,
     maxValue: 1,
@@ -43,15 +49,16 @@ const effects = {
     filter: 'brightness',
   },
 };
-let currentEffect = null;
+const defaultEffect = 'none';
+let currentEffect = defaultEffect;
 
 noUiSlider.create(slider.element, {
-  start: 100,
-  step: 1,
+  start: effects.NONE.maxValue,
+  step: effects.NONE.step,
   connect: 'lower',
   range: {
-    min: 0,
-    max: 100,
+    min: effects.NONE.minValue,
+    max: effects.NONE.maxValue,
   },
   format: {
     to: function (value) {
@@ -68,37 +75,18 @@ noUiSlider.create(slider.element, {
 
 const resetEffect = () => {
   image.removeAttribute('class');
-  image.style.filter = 'none';
-  currentEffect = null;
+  image.style.filter = defaultEffect;
   slider.output.value = 100;
-  slider.element.noUiSlider.set(100);
   noneEffect.checked = true;
 };
 
 const changeEffectLevel = (level) => {
-  image.style.filter = `${currentEffect.filter}(${level + currentEffect.unit})`;
+  const effectData = effects[currentEffect.toUpperCase()];
+  image.style.filter = `${effectData.filter}(${level + effectData.unit})`;
 };
 
-slider.element.noUiSlider.on('update', () => {
-  if (!currentEffect) {
-    return;
-  }
-  const value = slider.element.noUiSlider.get();
-  slider.output.value = value;
-  changeEffectLevel(value);
-});
-
-const applyEffect = (effect) => {
-  if (effect === 'none') {
-    slider.container.classList.add('hidden');
-    resetEffect();
-    return;
-  }
-  slider.container.classList.remove('hidden');
-  const effectData = effects[effect.toUpperCase()];
-  image.classList = `effects__preview--${effect}`;
-  currentEffect = effectData;
-
+const updateSlider = () => {
+  const effectData = effects[currentEffect.toUpperCase()];
   slider.element.noUiSlider.updateOptions({
     start: effectData.maxValue,
     step: effectData.step,
@@ -109,6 +97,20 @@ const applyEffect = (effect) => {
   });
 };
 
+const applyEffect = (effect) => {
+  currentEffect = effect;
+  updateSlider();
+
+  if (effect === defaultEffect) {
+    slider.container.classList.add('hidden');
+    resetEffect();
+    return;
+  }
+
+  slider.container.classList.remove('hidden');
+  image.classList = `effects__preview--${effect}`;
+};
+
 const onEffectButtonClick = (evt) => {
   if (!evt.target.matches('input[type="radio"]')) {
     return;
@@ -117,4 +119,13 @@ const onEffectButtonClick = (evt) => {
   applyEffect(evt.target.value);
 };
 
-export { resetEffect, onEffectButtonClick };
+const onSliderUpdate = () => {
+  if (currentEffect === defaultEffect) {
+    return;
+  }
+  const value = slider.element.noUiSlider.get();
+  slider.output.value = value;
+  changeEffectLevel(value);
+};
+
+export { resetEffect, onEffectButtonClick, onSliderUpdate };

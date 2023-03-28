@@ -6,29 +6,29 @@ const scale = {
     increase: form.querySelector('.scale__control--bigger'),
     output: form.querySelector('.scale__control--value'),
   },
-  step: 25,
+  STEP: 25,
+  MIN: 25,
+  MAX: 100,
   value: 100,
-  min: 25,
-  max: 100,
 };
 
 const resetSizing = () => {
-  scale.value = scale.max;
+  scale.value = scale.MAX;
   scale.controls.output.value = `${scale.value}%`;
   image.style.transform = `scale(${scale.value / 100})`;
 };
 
 const changeImageSize = (decreaseSize, button) => {
   if (decreaseSize) {
-    scale.value -= scale.step;
+    scale.value -= scale.STEP;
   } else {
-    scale.value += scale.step;
+    scale.value += scale.STEP;
   }
 
   scale.controls.output.value = `${scale.value}%`;
   image.style.transform = `scale(${scale.value / 100})`;
 
-  if (scale.value === scale.min || scale.value === scale.max) {
+  if (scale.value === scale.MIN || scale.value === scale.MAX) {
     button.disabled = true;
   } else {
     scale.controls.increase.disabled = false;
