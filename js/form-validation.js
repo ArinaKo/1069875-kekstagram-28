@@ -52,9 +52,11 @@ const validateHashtags = () => {
 
 pristine.addValidator(hashtagsInput, validateHashtags, () => validationMessage);
 
-form.addEventListener('submit', (evt) => {
+const onFormSubmit = (evt) => {
   const isValid = pristine.validate();
   if (!isValid) {
     evt.preventDefault();
   }
-});
+};
+
+export { onFormSubmit };
