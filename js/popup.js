@@ -5,7 +5,8 @@ let closeButton = null;
 let closeScript = null;
 
 const onDocumentKeydown = (evt) => {
-  if (isKeyEscape(evt)) {
+  const userMessage = body.querySelector('[data-user-message]');
+  if (isKeyEscape(evt) && !userMessage) {
     closePopup();
   }
 };
@@ -45,4 +46,4 @@ function closePopup() {
   closeScript = null;
 }
 
-export { openPopup, onCloseButtonClick };
+export { openPopup, closePopup };
