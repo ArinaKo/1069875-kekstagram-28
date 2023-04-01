@@ -78,6 +78,7 @@ const resetEffect = () => {
   image.style.filter = defaultEffect;
   slider.output.value = 100;
   noneEffect.checked = true;
+  currentEffect = defaultEffect;
 };
 
 const changeEffectLevel = (level) => {
