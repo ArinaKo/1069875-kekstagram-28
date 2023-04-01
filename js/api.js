@@ -12,32 +12,30 @@ const ErrorTexts = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-const createFetch = (route, errorMessage, method = Methods.GET_DATA, body = null) => {
+const createFetch = (route, errorMessage, method = Methods.GET_DATA, body = null) =>
   fetch(`${route}`, { method, body })
     .then((response) => {
       if (!response.ok) {
         throw new Error(errorMessage);
       }
+      return response.json();
     })
     .catch(() => {
       throw new Error(errorMessage);
     });
-};
 
-const getData = () => {
+const getData = () =>
   createFetch(
     SERVER + Paths.GET_DATA,
     ErrorTexts.GET_DATA
   );
-};
 
-const sendData = (data) => {
+const sendData = (data) =>
   createFetch(
     SERVER + Paths.SEND_DATA,
     ErrorTexts.SEND_DATA,
     Methods.SEND_DATA,
     data
   );
-};
 
 export { getData, sendData };
