@@ -1,6 +1,7 @@
 import { isKeyEscape } from './utilities.js';
 const body = document.body;
 let popup = null;
+let closeButton = null;
 let closeScript = null;
 
 const onDocumentKeydown = (evt) => {
@@ -14,8 +15,9 @@ const onCloseButtonClick = (evt) => {
   closePopup();
 };
 
-const openPopup = (element, openFunction, closeFunction) => {
+const openPopup = (element, button, openFunction, closeFunction) => {
   popup = element;
+  closeButton = button;
   if (openFunction) {
     openFunction();
   }
@@ -25,6 +27,7 @@ const openPopup = (element, openFunction, closeFunction) => {
   popup.classList.remove('hidden');
   body.classList.add('modal-open');
 
+  closeButton.addEventListener('click', onCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -35,8 +38,10 @@ function closePopup() {
   popup.classList.add('hidden');
   body.classList.remove('modal-open');
 
+  closeButton.removeEventListener('click', onCloseButtonClick);
   document.removeEventListener('keydown', onDocumentKeydown);
   popup = null;
+  closeButton = null;
   closeScript = null;
 }
 

@@ -1,5 +1,5 @@
 import { isKeyEscape } from './utilities.js';
-import { openPopup, onCloseButtonClick } from './popup.js';
+import { openPopup} from './popup.js';
 import { onFormSubmit } from './form-validation.js';
 import { resetSizing, onScaleClick } from './form-img-sizing.js';
 import {
@@ -48,7 +48,5 @@ const closeForm = () => {
 };
 
 fileField.addEventListener('change', () =>
-  openPopup(formOverlay, openForm, closeForm)
+  openPopup(formOverlay, closeButton, openForm, closeForm)
 );
-
-closeButton.addEventListener('click', onCloseButtonClick);

@@ -4,6 +4,7 @@ import { openPopup } from './popup.js';
 
 const picturesList = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
+const closeButton = bigPicture.querySelector('.cancel');
 
 const generateGallery = (postsData) => {
   generateThumbnails(postsData);
@@ -11,7 +12,7 @@ const generateGallery = (postsData) => {
 
   const onThumbnailClick = (thumbnailIndex) => {
     const post = postsData[postsId.indexOf(thumbnailIndex)];
-    openPopup(bigPicture, openBigPicture(post), closeBigPicture);
+    openPopup(bigPicture, closeButton, openBigPicture(post), closeBigPicture);
   };
 
   picturesList.addEventListener('click', (evt) => {
