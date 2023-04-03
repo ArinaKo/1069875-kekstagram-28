@@ -1,20 +1,32 @@
-const getRandomNumber = (min, max) =>
-  Math.floor(Math.random() * (max + 1 - min) + min);
-
-const generateId = (min, max) => {
-  const usedIds = [];
-  return function () {
-    let newId = getRandomNumber(min, max);
-    while (usedIds.includes(newId)) {
-      newId = getRandomNumber(min, max);
-    }
-    usedIds.push(newId);
-    return newId;
-  };
-};
-
-const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
-
 const isKeyEscape = (evt) => evt.key === 'Escape';
 
-export { getRandomNumber, generateId, getRandomElement, isKeyEscape };
+const showError = (message, styleClass, place) => {
+  const element = document.createElement('div');
+  element.className = styleClass;
+  element.textContent = message;
+  place.append(element);
+  setTimeout(() => element.remove(), 10000);
+};
+
+const showSubmitMessage = (template, place) => {
+  const message = template.cloneNode(true);
+  message.dataset.userMessage = true;
+
+  message.querySelector('button').addEventListener('click', () => {
+    message.remove();
+  });
+  document.addEventListener('keydown', (evt) => {
+    if (isKeyEscape(evt)) {
+      message.remove();
+    }
+  });
+  document.addEventListener('click', (evt) => {
+    if (!evt.target.matches('div')) {
+      message.remove();
+    }
+  });
+
+  place.append(message);
+};
+
+export { isKeyEscape, showError, showSubmitMessage };

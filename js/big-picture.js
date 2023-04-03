@@ -1,9 +1,6 @@
-import { onCloseButtonClick } from './popup.js';
 import { renderPost, renderComments } from './post.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const closeButton = bigPicture.querySelector('.cancel');
-
 const postShowingComments = bigPicture.querySelector('.social__comments').children;
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 let currentPostComments;
@@ -33,7 +30,5 @@ function closeBigPicture () {
   commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   currentPostComments = null;
 }
-
-closeButton.addEventListener('click', onCloseButtonClick);
 
 export { openBigPicture, closeBigPicture };
