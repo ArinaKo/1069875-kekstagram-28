@@ -15,6 +15,15 @@ const getRandomNumbers = (amount, fromNum, toNum) => {
   return numbers;
 };
 
+function debounce(callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 const showError = (message, styleClass, place) => {
   const element = document.createElement('div');
   element.className = styleClass;
@@ -44,4 +53,10 @@ const showSubmitMessage = (template, place) => {
   place.append(message);
 };
 
-export { isKeyEscape, showError, showSubmitMessage, getRandomNumbers };
+export {
+  isKeyEscape,
+  showError,
+  showSubmitMessage,
+  getRandomNumbers,
+  debounce,
+};
