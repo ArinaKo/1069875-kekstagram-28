@@ -4,20 +4,21 @@ const ValidationMessages = {
   INVALID_HASHTAG: 'Присутствует не валидный хэш-тег',
   DOUBLE_HASHTAG: 'Хэш-теги не уникальны',
 };
-
-const form = document.querySelector('.img-upload__form');
-const hashtagsInput = form.querySelector('.text__hashtags');
-
-let validationMessage;
-
-const pristine = new Pristine(form, {
+const PRISTINE_CONFIG = {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--invalid',
   successClass: 'img-upload__field-wrapper--valid',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'span',
   errorTextClass: 'form__error',
-});
+};
+
+const form = document.querySelector('.img-upload__form');
+const hashtagsInput = form.querySelector('.text__hashtags');
+
+let validationMessage;
+
+const pristine = new Pristine(form, PRISTINE_CONFIG);
 
 const isHashtagValid = (hashtag) => HASHTAG_PATTERN.test(hashtag);
 
