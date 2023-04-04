@@ -1,5 +1,5 @@
 import { generateGallery } from './gallery.js';
-import './form.js';
+import { setForm } from './form.js';
 import { getData } from './api.js';
 import { showError, debounce } from './utilities.js';
 import { setFilters } from './filters.js';
@@ -16,3 +16,5 @@ getData()
   .catch((err) => {
     showError(err.message, gallery);
   });
+
+setForm();

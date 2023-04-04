@@ -15,6 +15,7 @@ const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...',
 };
+
 const body = document.body;
 const section = body.querySelector('.img-upload__start');
 const form = body.querySelector('.img-upload__form');
@@ -95,16 +96,20 @@ const closeForm = () => {
   descriptionInput.removeEventListener('keydown', onInputEscapeKeydown);
 };
 
-fileField.addEventListener('change', () => {
-  const file = fileField.files[0];
-  const fileName = file.name.toLowerCase();
-  const isFileTypeValid = FILE_TYPES.some((item) => fileName.endsWith(item));
+const setForm = () => {
+  fileField.addEventListener('change', () => {
+    const file = fileField.files[0];
+    const fileName = file.name.toLowerCase();
+    const isFileTypeValid = FILE_TYPES.some((item) => fileName.endsWith(item));
 
-  if (!isFileTypeValid) {
-    showError(UPLOAD_FILE_ERROR, section);
-    return;
-  }
+    if (!isFileTypeValid) {
+      showError(UPLOAD_FILE_ERROR, section);
+      return;
+    }
 
-  imagePreview.src = URL.createObjectURL(file);
-  openPopup(formOverlay, closeButton, openForm, closeForm);
-});
+    imagePreview.src = URL.createObjectURL(file);
+    openPopup(formOverlay, closeButton, openForm, closeForm);
+  });
+};
+
+export { setForm };

@@ -1,11 +1,4 @@
-const form = document.querySelector('.img-upload__form');
-const image = form.querySelector('.img-upload__preview img');
-const noneEffect = form.querySelector('#effect-none');
-const slider = {
-  container: form.querySelector('.effect-level'),
-  element: form.querySelector('.effect-level__slider'),
-  output: form.querySelector('.effect-level__value'),
-};
+const DEFAULT_EFFECT = 'none';
 const effects = {
   NONE: {
     minValue: 0,
@@ -49,8 +42,17 @@ const effects = {
     filter: 'brightness',
   },
 };
-const defaultEffect = 'none';
-let currentEffect = defaultEffect;
+
+const form = document.querySelector('.img-upload__form');
+const image = form.querySelector('.img-upload__preview img');
+const noneEffect = form.querySelector('#effect-none');
+const slider = {
+  container: form.querySelector('.effect-level'),
+  element: form.querySelector('.effect-level__slider'),
+  output: form.querySelector('.effect-level__value'),
+};
+
+let currentEffect = DEFAULT_EFFECT;
 
 noUiSlider.create(slider.element, {
   start: effects.NONE.maxValue,
@@ -75,10 +77,10 @@ noUiSlider.create(slider.element, {
 
 const resetEffect = () => {
   image.removeAttribute('class');
-  image.style.filter = defaultEffect;
+  image.style.filter = DEFAULT_EFFECT;
   slider.output.value = 100;
   noneEffect.checked = true;
-  currentEffect = defaultEffect;
+  currentEffect = DEFAULT_EFFECT;
 };
 
 const changeEffectLevel = (level) => {
@@ -102,7 +104,7 @@ const applyEffect = (effect) => {
   currentEffect = effect;
   updateSlider();
 
-  if (effect === defaultEffect) {
+  if (effect === DEFAULT_EFFECT) {
     slider.container.classList.add('hidden');
     resetEffect();
     return;
@@ -121,7 +123,7 @@ const onEffectButtonClick = (evt) => {
 };
 
 const onSliderUpdate = () => {
-  if (currentEffect === defaultEffect) {
+  if (currentEffect === DEFAULT_EFFECT) {
     return;
   }
   const value = slider.element.noUiSlider.get();
