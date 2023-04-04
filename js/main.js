@@ -7,7 +7,6 @@ import { setFilters } from './filters.js';
 const RERENDER_DELAY = 500;
 
 const gallery = document.querySelector('.pictures');
-const galleryErrorClass = 'pictures__error';
 
 getData()
   .then((data) => {
@@ -15,5 +14,5 @@ getData()
     setFilters(debounce(() => generateGallery(data), RERENDER_DELAY));
   })
   .catch((err) => {
-    showError(err.message, galleryErrorClass, gallery);
+    showError(err.message, gallery);
   });

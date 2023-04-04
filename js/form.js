@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { isKeyEscape, showSubmitMessage } from './utilities.js';
+import { isKeyEscape, showSubmitMessage, showError } from './utilities.js';
 import { openPopup, closePopup } from './popup.js';
 import { validateForm } from './form-validation.js';
 import { resetSizing, onScaleClick } from './form-img-sizing.js';
@@ -9,13 +9,17 @@ import {
   onSliderUpdate,
 } from './form-img-effects.js';
 
+const UPLOAD_FILE_ERROR = 'Недопустимое расширение файла';
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...',
 };
 const body = document.body;
+const section = body.querySelector('.img-upload__start');
 const form = body.querySelector('.img-upload__form');
 const fileField = form.querySelector('#upload-file');
+const imagePreview = form.querySelector('.img-upload__preview img');
 const formOverlay = form.querySelector('.img-upload__overlay');
 const closeButton = form.querySelector('#upload-cancel');
 const hashtagsInput = form.querySelector('.text__hashtags');
@@ -91,6 +95,16 @@ const closeForm = () => {
   descriptionInput.removeEventListener('keydown', onInputEscapeKeydown);
 };
 
-fileField.addEventListener('change', () =>
-  openPopup(formOverlay, closeButton, openForm, closeForm)
-);
+fileField.addEventListener('change', () => {
+  const file = fileField.files[0];
+  const fileName = file.name.toLowerCase();
+  const isFileTypeValid = FILE_TYPES.some((item) => fileName.endsWith(item));
+
+  if (!isFileTypeValid) {
+    showError(UPLOAD_FILE_ERROR, section);
+    return;
+  }
+
+  imagePreview.src = URL.createObjectURL(file);
+  openPopup(formOverlay, closeButton, openForm, closeForm);
+});
