@@ -1,27 +1,51 @@
+import { getRandomNumbers } from './utilities.js';
+
+const RANDOM_POSTS_NUMBER = 10;
 const CLASS_TO_HIDE = 'img-filters--inactive';
 const CLASS_ACTIVE = 'img-filters__button--active';
 const filtersBlock = document.querySelector('.img-filters');
 const filtersForm = filtersBlock.querySelector('.img-filters__form');
 
-let currentFilter = 'default';
-
-const sortPosts = (itemA, itemB) => itemB - itemA;
-
-const filterPosts = (post) => {
-  const filteredPosts = post.slice();
-
-  if (currentFilter === 'discussed') {
-    filteredPosts.sort((a, b) =>
-      sortPosts(a.comments.length, b.comments.length)
-    );
-  }
-
-  return filteredPosts;
+const Filters = {
+  DEFAULT: {
+    filterPosts(posts) {
+      return posts;
+    },
+  },
+  RANDOM: {
+    filterPosts(posts) {
+      const randomIndexes = getRandomNumbers(
+        RANDOM_POSTS_NUMBER,
+        0,
+        posts.length - 1
+      );
+      const randomPosts = [];
+      randomIndexes.forEach((index) => {
+        randomPosts.push(posts[index]);
+      });
+      return randomPosts;
+    },
+  },
+  DISCUSSED: {
+    filterPosts(posts) {
+      return posts
+        .slice()
+        .sort((a, b) => sortPosts(a.comments.length, b.comments.length));
+    },
+  },
 };
+
+let currentFilter = Filters.DEFAULT;
+
+function sortPosts(itemA, itemB) {
+  return itemB - itemA;
+}
+
+const filterPosts = (posts) => currentFilter.filterPosts(posts);
 
 const changeFilter = (target) => {
   const filterName = target.id.replace('filter-', '');
-  currentFilter = filterName;
+  currentFilter = Filters[filterName.toUpperCase()];
 
   const pastFilterButton = filtersForm.querySelector('[disabled]');
   pastFilterButton.disabled = false;
