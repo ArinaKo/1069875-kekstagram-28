@@ -1,4 +1,5 @@
-const doseOfComments = 5;
+const COMMENTS_DOSE = 5;
+
 const post = document.querySelector('.big-picture');
 const postImage = post.querySelector('.big-picture__img img');
 const postLikesCount = post.querySelector('.likes-count');
@@ -7,29 +8,30 @@ const postCommentsCount = post.querySelector('.comments-count');
 const postComments = post.querySelector('.social__comments');
 const postComment = post.querySelector('.social__comment');
 const postCaption = post.querySelector('.social__caption');
+
 let showingComments;
 
-const renderComment = ({ message, avatar, name }) => {
-  const comment = postComment.cloneNode(true);
-  comment.querySelector('.social__text').textContent = message;
-  const commentImage = comment.querySelector('.social__picture');
+const createComment = ({ message, avatar, name }) => {
+  const commentElement = postComment.cloneNode(true);
+  commentElement.querySelector('.social__text').textContent = message;
+  const commentImage = commentElement.querySelector('.social__picture');
   commentImage.src = avatar;
   commentImage.alt = name;
-  return comment;
+  return commentElement;
 };
 
 const renderComments = (comments) => {
   const commentsFragment = document.createDocumentFragment();
   const commentsPortion = comments.slice(
     showingComments,
-    showingComments + doseOfComments
+    showingComments + COMMENTS_DOSE
   );
   commentsPortion.forEach((comment) =>
-    commentsFragment.append(renderComment(comment))
+    commentsFragment.append(createComment(comment))
   );
   postComments.append(commentsFragment);
   showingComments += commentsPortion.length;
-  postShowingComments.innerHTML = showingComments;
+  postShowingComments.textContent = showingComments;
 };
 
 const renderPost = ({ url, likes, description, comments }) => {

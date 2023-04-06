@@ -1,5 +1,5 @@
 const DEFAULT_EFFECT = 'none';
-const effects = {
+const Effects = {
   NONE: {
     minValue: 0,
     maxValue: 100,
@@ -55,12 +55,12 @@ const slider = {
 let currentEffect = DEFAULT_EFFECT;
 
 noUiSlider.create(slider.element, {
-  start: effects.NONE.maxValue,
-  step: effects.NONE.step,
+  start: Effects.NONE.maxValue,
+  step: Effects.NONE.step,
   connect: 'lower',
   range: {
-    min: effects.NONE.minValue,
-    max: effects.NONE.maxValue,
+    min: Effects.NONE.minValue,
+    max: Effects.NONE.maxValue,
   },
   format: {
     to: function (value) {
@@ -84,18 +84,18 @@ const resetEffect = () => {
 };
 
 const changeEffectLevel = (level) => {
-  const effectData = effects[currentEffect.toUpperCase()];
-  image.style.filter = `${effectData.filter}(${level + effectData.unit})`;
+  const {filter, unit} = Effects[currentEffect.toUpperCase()];
+  image.style.filter = `${filter}(${level + unit})`;
 };
 
 const updateSlider = () => {
-  const effectData = effects[currentEffect.toUpperCase()];
+  const {maxValue, minValue, step} = Effects[currentEffect.toUpperCase()];
   slider.element.noUiSlider.updateOptions({
-    start: effectData.maxValue,
-    step: effectData.step,
+    start: maxValue,
+    step: step,
     range: {
-      min: effectData.minValue,
-      max: effectData.maxValue,
+      min: minValue,
+      max: maxValue,
     },
   });
 };

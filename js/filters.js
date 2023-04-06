@@ -1,4 +1,4 @@
-import { getRandomNumbers } from './utilities.js';
+import { getRandomNumbers, sortByAscending } from './utilities.js';
 
 const RANDOM_POSTS_NUMBER = 10;
 const CLASS_TO_HIDE = 'img-filters--inactive';
@@ -30,16 +30,12 @@ const Filters = {
     filterPosts(posts) {
       return posts
         .slice()
-        .sort((a, b) => sortPosts(a.comments.length, b.comments.length));
+        .sort((a, b) => sortByAscending(a.comments.length, b.comments.length));
     },
   },
 };
 
 let currentFilter = Filters.DEFAULT;
-
-function sortPosts(itemA, itemB) {
-  return itemB - itemA;
-}
 
 const filterPosts = (posts) => currentFilter.filterPosts(posts);
 

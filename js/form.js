@@ -11,7 +11,7 @@ import {
 
 const UPLOAD_FILE_ERROR = 'Недопустимое расширение файла';
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
-const SubmitButtonText = {
+const SubmitButtonTexts = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...',
 };
@@ -39,12 +39,12 @@ const errorMessage = body
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonTexts.SENDING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonTexts.IDLE;
 };
 
 const onFormSubmit = (evt) => {

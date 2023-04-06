@@ -15,14 +15,14 @@ const getRandomNumbers = (amount, fromNum, toNum) => {
   return numbers;
 };
 
-function debounce(callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 const showError = (message, place, styleClass = 'default__error') => {
   const element = document.createElement('div');
@@ -53,10 +53,14 @@ const showSubmitMessage = (template, place) => {
   place.append(message);
 };
 
+const sortByAscending = (itemA, itemB) => itemB - itemA;
+
+
 export {
   isKeyEscape,
   showError,
   showSubmitMessage,
   getRandomNumbers,
+  sortByAscending,
   debounce,
 };
