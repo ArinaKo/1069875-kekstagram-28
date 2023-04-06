@@ -7,31 +7,40 @@ const picturesList = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.cancel');
 
+let postsData = [];
+let postsId = [];
+
 const clearGallery = () => {
   picturesList.querySelectorAll('[data-thumbnail-id]').forEach((picture) => {
     picture.remove();
   });
 };
 
-const generateGallery = (postsData) => {
+const onThumbnailClick = (thumbnailIndex) => {
+  const post = postsData[postsId.indexOf(thumbnailIndex)];
+  openPopup(bigPicture, closeButton, openBigPicture(post), closeBigPicture);
+};
+
+const onPicturesListClick = (evt) => {
+  if (!evt.target.closest('.picture')) {
+    return;
+  }
+  evt.preventDefault();
+  const thumbnailIndex = Number(evt.target.parentNode.dataset.thumbnailId);
+  onThumbnailClick(thumbnailIndex);
+};
+
+const renderGallery = () => {
   const filteredPosts = filterPosts(postsData);
   clearGallery();
   generateThumbnails(filteredPosts);
-  const postsId = postsData.map((post) => post.id);
-
-  const onThumbnailClick = (thumbnailIndex) => {
-    const post = postsData[postsId.indexOf(thumbnailIndex)];
-    openPopup(bigPicture, closeButton, openBigPicture(post), closeBigPicture);
-  };
-
-  picturesList.addEventListener('click', (evt) => {
-    if (!evt.target.closest('.picture')) {
-      return;
-    }
-    evt.preventDefault();
-    const thumbnailIndex = Number(evt.target.parentNode.dataset.thumbnailId);
-    onThumbnailClick(thumbnailIndex);
-  });
 };
 
-export { generateGallery };
+const setGallery = (posts) => {
+  postsData = posts;
+  postsId = posts.map((post) => post.id);
+  renderGallery();
+  picturesList.addEventListener('click', onPicturesListClick);
+};
+
+export { setGallery, renderGallery };

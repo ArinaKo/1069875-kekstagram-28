@@ -1,4 +1,4 @@
-import { generateGallery } from './gallery.js';
+import { setGallery, renderGallery } from './gallery.js';
 import { setForm } from './form.js';
 import { getData } from './api.js';
 import { showError, debounce } from './utilities.js';
@@ -10,8 +10,8 @@ const gallery = document.querySelector('.pictures');
 
 getData()
   .then((data) => {
-    generateGallery(data);
-    setFilters(debounce(() => generateGallery(data), RERENDER_DELAY));
+    setGallery(data);
+    setFilters(debounce(renderGallery, RERENDER_DELAY));
   })
   .catch((err) => {
     showError(err.message, gallery);
