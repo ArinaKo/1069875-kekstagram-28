@@ -1,5 +1,7 @@
 import { isKeyEscape } from './utilities.js';
+
 const body = document.body;
+
 let popup = null;
 let closeButton = null;
 let closeScript = null;

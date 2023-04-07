@@ -1,12 +1,5 @@
-const form = document.querySelector('.img-upload__form');
-const image = form.querySelector('.img-upload__preview img');
-const noneEffect = form.querySelector('#effect-none');
-const slider = {
-  container: form.querySelector('.effect-level'),
-  element: form.querySelector('.effect-level__slider'),
-  output: form.querySelector('.effect-level__value'),
-};
-const effects = {
+const DEFAULT_EFFECT = 'none';
+const Effects = {
   NONE: {
     minValue: 0,
     maxValue: 100,
@@ -49,16 +42,25 @@ const effects = {
     filter: 'brightness',
   },
 };
-const defaultEffect = 'none';
-let currentEffect = defaultEffect;
+
+const form = document.querySelector('.img-upload__form');
+const image = form.querySelector('.img-upload__preview img');
+const noneEffect = form.querySelector('#effect-none');
+const slider = {
+  container: form.querySelector('.effect-level'),
+  element: form.querySelector('.effect-level__slider'),
+  output: form.querySelector('.effect-level__value'),
+};
+
+let currentEffect = DEFAULT_EFFECT;
 
 noUiSlider.create(slider.element, {
-  start: effects.NONE.maxValue,
-  step: effects.NONE.step,
+  start: Effects.NONE.maxValue,
+  step: Effects.NONE.step,
   connect: 'lower',
   range: {
-    min: effects.NONE.minValue,
-    max: effects.NONE.maxValue,
+    min: Effects.NONE.minValue,
+    max: Effects.NONE.maxValue,
   },
   format: {
     to: function (value) {
@@ -75,25 +77,25 @@ noUiSlider.create(slider.element, {
 
 const resetEffect = () => {
   image.removeAttribute('class');
-  image.style.filter = defaultEffect;
+  image.style.filter = DEFAULT_EFFECT;
   slider.output.value = 100;
   noneEffect.checked = true;
-  currentEffect = defaultEffect;
+  currentEffect = DEFAULT_EFFECT;
 };
 
 const changeEffectLevel = (level) => {
-  const effectData = effects[currentEffect.toUpperCase()];
-  image.style.filter = `${effectData.filter}(${level + effectData.unit})`;
+  const {filter, unit} = Effects[currentEffect.toUpperCase()];
+  image.style.filter = `${filter}(${level + unit})`;
 };
 
 const updateSlider = () => {
-  const effectData = effects[currentEffect.toUpperCase()];
+  const {maxValue, minValue, step} = Effects[currentEffect.toUpperCase()];
   slider.element.noUiSlider.updateOptions({
-    start: effectData.maxValue,
-    step: effectData.step,
+    start: maxValue,
+    step: step,
     range: {
-      min: effectData.minValue,
-      max: effectData.maxValue,
+      min: minValue,
+      max: maxValue,
     },
   });
 };
@@ -102,7 +104,7 @@ const applyEffect = (effect) => {
   currentEffect = effect;
   updateSlider();
 
-  if (effect === defaultEffect) {
+  if (effect === DEFAULT_EFFECT) {
     slider.container.classList.add('hidden');
     resetEffect();
     return;
@@ -121,7 +123,7 @@ const onEffectButtonClick = (evt) => {
 };
 
 const onSliderUpdate = () => {
-  if (currentEffect === defaultEffect) {
+  if (currentEffect === DEFAULT_EFFECT) {
     return;
   }
   const value = slider.element.noUiSlider.get();

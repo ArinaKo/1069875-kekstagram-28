@@ -1,44 +1,45 @@
-const form = document.querySelector('.img-upload__form');
-const image = form.querySelector('.img-upload__preview img');
-const scale = {
-  controls: {
-    decrease: form.querySelector('.scale__control--smaller'),
-    increase: form.querySelector('.scale__control--bigger'),
-    output: form.querySelector('.scale__control--value'),
-  },
+const Scale = {
   STEP: 25,
   MIN: 25,
   MAX: 100,
-  value: 100,
+};
+const form = document.querySelector('.img-upload__form');
+const image = form.querySelector('.img-upload__preview img');
+const Controls = {
+  decrease: form.querySelector('.scale__control--smaller'),
+  increase: form.querySelector('.scale__control--bigger'),
+  output: form.querySelector('.scale__control--value'),
 };
 
+let sizingValue = 100;
+
 const resetSizing = () => {
-  scale.value = scale.MAX;
-  scale.controls.output.value = `${scale.value}%`;
-  image.style.transform = `scale(${scale.value / 100})`;
+  sizingValue = Scale.MAX;
+  Controls.output.value = `${sizingValue}%`;
+  image.style.transform = `scale(${sizingValue / 100})`;
 };
 
 const changeImageSize = (decreaseSize, button) => {
   if (decreaseSize) {
-    scale.value -= scale.STEP;
+    sizingValue -= Scale.STEP;
   } else {
-    scale.value += scale.STEP;
+    sizingValue += Scale.STEP;
   }
 
-  scale.controls.output.value = `${scale.value}%`;
-  image.style.transform = `scale(${scale.value / 100})`;
+  Controls.output.value = `${sizingValue}%`;
+  image.style.transform = `scale(${sizingValue / 100})`;
 
-  if (scale.value === scale.MIN || scale.value === scale.MAX) {
+  if (sizingValue === Scale.MIN || sizingValue === Scale.MAX) {
     button.disabled = true;
   } else {
-    scale.controls.increase.disabled = false;
-    scale.controls.decrease.disabled = false;
+    Controls.increase.disabled = false;
+    Controls.decrease.disabled = false;
   }
 };
 
 const onScaleClick = (evt) => {
   let decrease = true;
-  if (evt.target === scale.controls.increase) {
+  if (evt.target === Controls.increase) {
     decrease = false;
   }
   changeImageSize(decrease, evt.target);

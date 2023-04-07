@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { isKeyEscape, showSubmitMessage } from './utilities.js';
+import { isKeyEscape, showSubmitMessage, showError } from './utilities.js';
 import { openPopup, closePopup } from './popup.js';
 import { validateForm } from './form-validation.js';
 import { resetSizing, onScaleClick } from './form-img-sizing.js';
@@ -9,13 +9,18 @@ import {
   onSliderUpdate,
 } from './form-img-effects.js';
 
-const SubmitButtonText = {
+const UPLOAD_FILE_ERROR = 'Недопустимое расширение файла';
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const SubmitButtonTexts = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...',
 };
+
 const body = document.body;
+const section = body.querySelector('.img-upload__start');
 const form = body.querySelector('.img-upload__form');
 const fileField = form.querySelector('#upload-file');
+const imagePreview = form.querySelector('.img-upload__preview img');
 const formOverlay = form.querySelector('.img-upload__overlay');
 const closeButton = form.querySelector('#upload-cancel');
 const hashtagsInput = form.querySelector('.text__hashtags');
@@ -34,12 +39,12 @@ const errorMessage = body
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonTexts.SENDING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonTexts.IDLE;
 };
 
 const onFormSubmit = (evt) => {
@@ -91,6 +96,20 @@ const closeForm = () => {
   descriptionInput.removeEventListener('keydown', onInputEscapeKeydown);
 };
 
-fileField.addEventListener('change', () =>
-  openPopup(formOverlay, closeButton, openForm, closeForm)
-);
+const setForm = () => {
+  fileField.addEventListener('change', () => {
+    const file = fileField.files[0];
+    const fileName = file.name.toLowerCase();
+    const isFileTypeValid = FILE_TYPES.some((item) => fileName.endsWith(item));
+
+    if (!isFileTypeValid) {
+      showError(UPLOAD_FILE_ERROR, section);
+      return;
+    }
+
+    imagePreview.src = URL.createObjectURL(file);
+    openPopup(formOverlay, closeButton, openForm, closeForm);
+  });
+};
+
+export { setForm };

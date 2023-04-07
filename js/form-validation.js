@@ -1,49 +1,57 @@
-const form = document.querySelector('.img-upload__form');
-const hashtagsInput = form.querySelector('.text__hashtags');
-const hashtagPattern = /^#[a-zа-яё0-9]{1,19}$/i;
-let validationMessage;
-
-const pristine = new Pristine(form, {
+const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
+const ValidationMessages = {
+  INCORRECT_AMOUNT: 'Максимальное количество хэш-тегов 5',
+  INVALID_HASHTAG: 'Присутствует не валидный хэш-тег',
+  DOUBLE_HASHTAG: 'Хэш-теги не уникальны',
+};
+const PRISTINE_CONFIG = {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--invalid',
   successClass: 'img-upload__field-wrapper--valid',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'span',
   errorTextClass: 'form__error',
-});
+};
 
-const validateHashtag = (hashtag) => hashtagPattern.test(hashtag);
+const form = document.querySelector('.img-upload__form');
+const hashtagsInput = form.querySelector('.text__hashtags');
 
-const validateHashtags = () => {
-  if (!hashtagsInput.value) {
-    return true;
-  }
+let validationMessage;
 
-  const hashtags = hashtagsInput.value
+const pristine = new Pristine(form, PRISTINE_CONFIG);
+
+const isHashtagValid = (hashtag) => HASHTAG_PATTERN.test(hashtag);
+
+const transformInputValue = (value) =>
+  value
     .trim()
     .toLowerCase()
     .split(' ')
     .map((item) => item.trim())
     .filter((item) => item.length);
 
+const validateHashtags = () => {
+  if (!hashtagsInput.value) {
+    return true;
+  }
+
+  const hashtags = transformInputValue(hashtagsInput.value);
   if (hashtags.length > 5) {
-    validationMessage = 'Максимальное количество хэш-тегов 5';
+    validationMessage = ValidationMessages.INCORRECT_AMOUNT;
     return false;
   }
 
   const check = hashtags.every((hashtag, id) => {
-    const isValid = validateHashtag(hashtag);
-
+    const isValid = isHashtagValid(hashtag);
     if (!isValid) {
-      validationMessage = 'Присутствует не валидный хэш-тег';
+      validationMessage = ValidationMessages.INVALID_HASHTAG;
       return false;
     }
 
     const isUnique = !hashtags.slice(id + 1).includes(hashtag);
     if (!isUnique) {
-      validationMessage = 'Хэш-теги не уникальны';
+      validationMessage = ValidationMessages.DOUBLE_HASHTAG;
     }
-
     return isUnique;
   });
 

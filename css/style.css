@@ -195,22 +195,6 @@ main {
       grid-template-columns: repeat(7, 1fr);
 }
 
-.pictures__error {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 15px;
-  font-family: inherit;
-  text-align: center;
-  font-size: 1.4em;
-  line-height: 1.4em;
-  font-weight: 600;
-  color: #ff4d4d;
-  background-color: #232321cc;
-  border: 4px solid #ff4d4d;
-}
-
 .picture {
   position: relative;
   line-height: 0;
@@ -1442,4 +1426,20 @@ main {
 
 .hidden {
   display: none;
+}
+
+.default__error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  font-family: inherit;
+  text-align: center;
+  font-size: 1.4em;
+  line-height: 1.4em;
+  font-weight: 600;
+  color: #ff4d4d;
+  background-color: #232321cc;
+  border: 4px solid #ff4d4d;
 }

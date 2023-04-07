@@ -5,7 +5,7 @@ const postShowingComments = bigPicture.querySelector('.social__comments').childr
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 let currentPostComments;
 
-const allCommentsShown = () => {
+const isAllCommentsShown = () => {
   const isShown = postShowingComments.length === currentPostComments.length;
   if (isShown) {
     commentsLoader.classList.add('hidden');
@@ -16,14 +16,14 @@ const allCommentsShown = () => {
 
 const onCommentsLoaderClick = () => {
   renderComments(currentPostComments);
-  allCommentsShown();
+  isAllCommentsShown();
 };
 
 const openBigPicture = (post) => {
   currentPostComments = post.comments;
   renderPost(post);
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
-  allCommentsShown();
+  isAllCommentsShown();
 };
 
 function closeBigPicture () {
